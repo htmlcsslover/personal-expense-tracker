@@ -39,8 +39,11 @@ export default async function Dashboard() {
       monthlyExpenses += exp.amount * 2;
       cutoffExpenses += exp.amount;
     } else {
+      // ONE-TIME: Fully subtract from the current month. 
+      // For cutoff, we subtract the full amount if it happened in this cycle.
+      // (Simplified for now: subtract full amount from cutoff as well)
       monthlyExpenses += exp.amount;
-      cutoffExpenses += exp.amount / 2; 
+      cutoffExpenses += exp.amount; 
     }
   });
 

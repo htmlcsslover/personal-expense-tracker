@@ -29,10 +29,11 @@ interface Expense {
 const expenseSchema = z.object({
   title: z.string().min(1, "Title is required"),
   amount: z.number().min(0.01, "Amount must be greater than 0"),
-  type: z.enum(["EXPENSE", "DEDUCTION"]),
+  type: z.enum(["EXPENSE", "DEDUCTION", "SAVINGS"]),
   frequency: z.enum(["ONCE", "MONTHLY", "PER CUTOFF"]),
   date: z.string().optional(),
-}).refine((data) => {
+})
+.refine((data) => {
   if (data.frequency === "ONCE" && !data.date) {
     return false;
   }
@@ -82,6 +83,7 @@ export function ExpenseManager({
     const constantCutoff = initialExpenses.reduce((sum, exp) => {
       if (exp.frequency === "MONTHLY") return sum + (exp.amount / 2);
       if (exp.frequency === "PER CUTOFF") return sum + exp.amount;
+      if (exp.frequency === "ONCE") return sum + exp.amount;
       return sum;
     }, 0);
     return { cutoffNet, constantCutoff, remaining: cutoffNet - constantCutoff };

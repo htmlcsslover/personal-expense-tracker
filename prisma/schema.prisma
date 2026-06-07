@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model IncomeProfile {
+  id            String      @id @default(cuid())
+  basicPay      Float       @default(0)
+  nightDiff     Float       @default(0)
+  nightDiffHours Float       @default(0)
+  sss           Float       @default(0)
+  pagibig       Float       @default(0)
+  philhealth    Float       @default(0)
+  tax           Float       @default(0)
+  updatedAt     DateTime    @updatedAt
+  allowances    Allowance[]
+}
+
+model Allowance {
+  id              String        @id @default(cuid())
+  label           String
+  amount          Float
+  incomeProfileId String
+  incomeProfile   IncomeProfile @relation(fields: [incomeProfileId], references: [id], onDelete: Cascade)
+}
+
+model Expense {
+  id        String   @id @default(cuid())
+  title     String
+  amount    Float
+  type      String
+  frequency String
+  date      DateTime
+  createdAt DateTime @default(now())
+}
+
+model SavingsGoal {
+  id            String    @id @default(cuid())
+  title         String
+  targetAmount  Float
+  currentAmount Float     @default(0)
+  targetDate    DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}

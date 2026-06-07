@@ -8,9 +8,7 @@ const withSerwist = withSerwistInit({
 });
 
 const nextConfig: NextConfig = {
-  experimental: {
-    allowedDevOrigins: ["192.168.1.5:3000"],
-  },
+  /* config options here */
 };
 
 export default withSerwist(nextConfig);

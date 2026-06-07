@@ -87,7 +87,7 @@ export function IncomeForm({ initialData }: IncomeFormProps) {
   }
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[1fr_360px] animate-in fade-in duration-500">
+    <div className="grid gap-6 lg:grid-cols-[1fr_380px] max-w-full mx-auto animate-in fade-in duration-500">
       <div className="space-y-8">
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-2 text-indigo-500">
@@ -98,6 +98,7 @@ export function IncomeForm({ initialData }: IncomeFormProps) {
         </div>
 
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          {/* Base Compensation Section */}
           <section className="space-y-4">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-lg bg-slate-900 flex items-center justify-center shadow-sm">
@@ -105,110 +106,115 @@ export function IncomeForm({ initialData }: IncomeFormProps) {
               </div>
               <h3 className="text-[10px] font-black uppercase tracking-[0.1em] text-slate-900">Base Compensation</h3>
             </div>
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="space-y-1.5">
-                <Label htmlFor="basicPay" className="text-[9px] font-black text-slate-500 uppercase tracking-widest px-1">Monthly Basic Pay</Label>
+            
+            <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-end">
+              <div className="flex-1 w-full space-y-1.5">
+                <Label htmlFor="basicPay" className="text-[9px] font-black text-slate-400 uppercase tracking-widest px-1">Monthly Basic Pay</Label>
                 <div className="relative group">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-300 font-black text-[10px] group-focus-within:text-indigo-500 transition-colors">₱ </span>
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-300 font-black text-[10px]">₱</span>
                   <Input 
                     id="basicPay" 
                     {...form.register("basicPay", { valueAsNumber: true })} 
                     type="number" 
-                    step="0.01"
-                    placeholder="0.00"
-                    className="pl-7 h-9 rounded-lg border-slate-200 bg-white/50 focus:bg-white focus:ring-0 focus:border-indigo-500 transition-all font-mono font-bold text-xs tabular-nums shadow-xs"
+                    step="0.01" 
+                    placeholder="0.00" 
+                    className="pl-7 pr-3 h-9 rounded-lg border-slate-200 bg-white/50 focus:bg-white focus:ring-0 focus:border-slate-900 transition-all font-mono font-bold text-xs tabular-nums shadow-xs w-full" 
                   />
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-3">
-                <div className="space-y-1.5">
-                  <Label htmlFor="nightDiff" className="text-[9px] font-black text-slate-500 uppercase tracking-widest px-1">Differential %</Label>
+              <div className="w-full sm:w-24 space-y-1.5">
+                <Label htmlFor="nightDiff" className="text-[9px] font-black text-slate-400 uppercase tracking-widest px-1">Diff %</Label>
+                <Input 
+                  id="nightDiff" 
+                  {...form.register("nightDiff", { valueAsNumber: true })} 
+                  type="number" 
+                  step="0.01" 
+                  placeholder="10" 
+                  className="h-9 rounded-lg border-slate-200 bg-white/50 focus:bg-white focus:ring-0 focus:border-slate-900 transition-all font-mono font-bold text-xs tabular-nums text-center shadow-xs w-full" 
+                />
+              </div>
+              <div className="w-full sm:w-28 space-y-1.5">
+                <Label htmlFor="nightDiffHours" className="text-[9px] font-black text-slate-400 uppercase tracking-widest px-1">Total Hours</Label>
+                <div className="relative group">
+                  <Clock className="absolute right-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-300" />
                   <Input 
-                    id="nightDiff" 
-                    {...form.register("nightDiff", { valueAsNumber: true })} 
+                    id="nightDiffHours" 
+                    {...form.register("nightDiffHours", { valueAsNumber: true })} 
                     type="number" 
-                    step="0.01" 
-                    placeholder="10"
-                    className="h-9 rounded-lg border-slate-200 bg-white/50 focus:bg-white focus:ring-0 focus:border-indigo-500 transition-all font-mono font-bold text-xs tabular-nums text-center shadow-xs"
+                    step="1" 
+                    placeholder="0" 
+                    className="h-9 rounded-lg border-slate-200 bg-white/50 focus:bg-white focus:ring-0 focus:border-slate-900 transition-all font-mono font-bold text-xs tabular-nums pr-8 text-center shadow-xs w-full" 
                   />
-                </div>
-                <div className="space-y-1.5">
-                  <Label htmlFor="nightDiffHours" className="text-[9px] font-black text-slate-500 uppercase tracking-widest px-1">Hours</Label>
-                  <div className="relative group">
-                    <Clock className="absolute right-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-300 group-focus-within:text-indigo-500 transition-colors" />
-                    <Input 
-                      id="nightDiffHours" 
-                      {...form.register("nightDiffHours", { valueAsNumber: true })} 
-                      type="number" 
-                      step="1"
-                      placeholder="0"
-                      className="h-9 rounded-lg border-slate-200 bg-white/50 focus:bg-white focus:ring-0 focus:border-indigo-500 transition-all font-mono font-bold text-xs tabular-nums pr-8 text-center shadow-xs"
-                    />
-                  </div>
                 </div>
               </div>
             </div>
           </section>
 
+          {/* Allowances Section */}
           <section className="space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <div className="w-8 h-8 rounded-lg bg-indigo-500 flex items-center justify-center shadow-sm">
                   <Plus className="w-4 h-4 text-white" />
                 </div>
-                <h3 className="text-[10px] font-black uppercase tracking-[0.1em] text-slate-900">Variable Allowances</h3>
+                <h3 className="text-[10px] font-black uppercase tracking-[0.1em] text-slate-900">Allowances</h3>
               </div>
               <Button
                 type="button"
                 variant="outline"
                 size="sm"
                 onClick={() => append({ label: "", amount: undefined as any })}
-                className="text-[9px] font-black uppercase tracking-widest h-7 px-4 rounded-md border-slate-200 hover:bg-slate-900 hover:text-white transition-all"
+                className="text-[9px] font-black uppercase tracking-widest h-7 px-4 rounded-md border-slate-200 hover:bg-slate-900 hover:text-white transition-all w-fit"
               >
-                + Node
+                + Add Allowance
               </Button>
             </div>
             
             <div className="grid gap-2">
               {fields.map((field, index) => (
-                <div key={field.id} className="group flex gap-2 animate-in slide-in-from-right-2 duration-500 items-end">
-                  <div className="flex-1 space-y-1.5">
+                <div key={field.id} className="grid grid-cols-1 sm:grid-cols-12 gap-3 items-end animate-in slide-in-from-right-2 duration-500">
+                  <div className="sm:col-span-7 space-y-1.5">
                     <Input
-                      placeholder="Descriptor..."
+                      placeholder="Description"
                       {...form.register(`allowances.${index}.label`)}
-                      className="h-9 rounded-lg border-slate-200 bg-white focus:border-indigo-500 transition-all font-bold text-xs px-3 shadow-xs"
+                      className="h-9 rounded-lg border-slate-200 bg-white focus:border-indigo-500 transition-all font-bold text-xs px-3 shadow-xs w-full"
                     />
                   </div>
-                  <div className="relative w-32 space-y-1.5">
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-300 text-[10px] font-black group-focus-within:text-indigo-500 transition-colors">₱</span>
-                    <Input
-                      type="number"
-                      step="0.01"
-                      placeholder="0.00"
-                      {...form.register(`allowances.${index}.amount`, { valueAsNumber: true })}
-                      className="pl-7 h-9 rounded-lg border-slate-200 bg-white focus:border-indigo-500 transition-all font-mono font-bold text-xs tabular-nums shadow-xs"
-                    />
+                  <div className="sm:col-span-4 space-y-1.5">
+                    <div className="relative group">
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-300 text-[10px] font-black group-focus-within:text-indigo-500 transition-colors">₱ </span>
+                      <Input
+                        type="number"
+                        step="0.01"
+                        placeholder="0.00"
+                        {...form.register(`allowances.${index}.amount`, { valueAsNumber: true })}
+                        className="pl-7 h-9 rounded-lg border-slate-200 bg-white focus:border-indigo-500 transition-all font-mono font-bold text-xs tabular-nums shadow-xs w-full"
+                      />
+                    </div>
                   </div>
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => remove(index)}
-                    className="h-9 w-9 shrink-0 text-slate-200 hover:text-red-500 transition-all rounded-lg opacity-100 sm:opacity-0 group-hover:opacity-100"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </Button>
+                  <div className="sm:col-span-1 flex justify-end">
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => remove(index)}
+                      className="h-9 w-9 text-slate-200 hover:text-red-500 transition-all rounded-lg opacity-100 group-hover:opacity-100"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </Button>
+                  </div>
                 </div>
               ))}
               {fields.length === 0 && (
-                <div className="py-8 border border-dashed border-slate-200 rounded-xl flex flex-col items-center justify-center text-slate-300 gap-2">
+                <div className="py-8 border border-dashed border-slate-200 rounded-xl flex flex-col items-center justify-center text-slate-300 gap-2 w-full">
                   <Activity className="w-5 h-5 opacity-20" />
-                  <p className="text-[9px] font-black uppercase tracking-widest">Awaiting data injection</p>
+                  <p className="text-[9px] font-black uppercase tracking-widest">No allowances added</p>
                 </div>
               )}
             </div>
           </section>
 
+          {/* Mandatory Protocols Section */}
           <section className="space-y-4">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-lg bg-red-500 flex items-center justify-center shadow-sm">
@@ -216,7 +222,7 @@ export function IncomeForm({ initialData }: IncomeFormProps) {
               </div>
               <h3 className="text-[10px] font-black uppercase tracking-[0.1em] text-slate-900">Mandatory Protocols</h3>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 w-full">
               {[
                 { id: "sss", label: "SSS" },
                 { id: "pagibig", label: "Pag-IBIG" },
@@ -233,7 +239,7 @@ export function IncomeForm({ initialData }: IncomeFormProps) {
                       type="number" 
                       step="0.01" 
                       placeholder="0" 
-                      className="pl-7 h-9 rounded-lg border-slate-200 bg-slate-50/50 focus:bg-white focus:border-indigo-500 transition-all font-mono font-bold text-xs tabular-nums shadow-xs" 
+                      className="pl-7 h-9 rounded-lg border-slate-200 bg-slate-50/50 focus:bg-white focus:border-indigo-500 transition-all font-mono font-bold text-xs tabular-nums shadow-xs w-full" 
                     />
                   </div>
                 </div>
@@ -244,11 +250,11 @@ export function IncomeForm({ initialData }: IncomeFormProps) {
           <div className="pt-4">
             <Button 
               type="submit" 
-              className="w-full h-12 bg-slate-900 hover:bg-black text-white rounded-xl text-[10px] font-black uppercase tracking-[0.3em] shadow-md transition-all active:scale-[0.98] group relative overflow-hidden" 
+              className="w-fit h-12 bg-slate-900 hover:bg-black text-white rounded-xl text-[10px] font-black uppercase tracking-[0.3em] shadow-md transition-all active:scale-[0.98] group relative overflow-hidden px-10" 
               disabled={isPending}
             >
               <Activity className={cn("w-3.5 h-3.5 mr-2 relative z-10", isPending && "animate-pulse")} />
-              <span className="relative z-10">{isPending ? "Synchronizing..." : "Authorize System Update"}</span>
+              <span className="relative z-10">{isPending ? "Synchronizing..." : "Update Income"}</span>
             </Button>
             {message && (
               <div className={cn(
@@ -262,6 +268,7 @@ export function IncomeForm({ initialData }: IncomeFormProps) {
         </form>
       </div>
 
+      {/* Projection Sidebar */}
       <div className="space-y-6">
         <div className="sticky top-6 space-y-6">
           <Card className="rounded-xl border border-slate-200 bg-white/50 p-4 backdrop-blur-md overflow-hidden relative group shadow-xs">
@@ -284,20 +291,20 @@ export function IncomeForm({ initialData }: IncomeFormProps) {
                 <div className="space-y-2 p-3 bg-slate-50 rounded-lg border border-slate-100">
                    <div className="flex justify-between text-[9px] text-slate-500 font-bold uppercase tracking-tighter">
                       <span>Basic Salary</span>
-                      <span className="tabular-nums">₱ {watchValues.basicPay?.toLocaleString() || "0.00"}</span>
+                      <span className="tabular-nums">₱ {(watchValues.basicPay || 0).toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
                    </div>
                    <div className="flex justify-between text-[9px] text-slate-500 font-bold uppercase tracking-tighter">
                       <span>Total Allowances</span>
-                      <span className="tabular-nums">₱ {totalAllowances.toLocaleString()}</span>
+                      <span className="tabular-nums">₱ {totalAllowances.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
                    </div>
                    <div className="flex justify-between text-[9px] text-slate-500 font-bold uppercase tracking-tighter">
                       <span>Night Differential</span>
-                      <span className="text-emerald-600 tabular-nums">+ ₱ {nightDiffAmount.toLocaleString(undefined, { maximumFractionDigits: 2 })}</span>
+                      <span className="text-emerald-600 tabular-nums">+ ₱ {nightDiffAmount.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
                    </div>
                 </div>
                 <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-slate-500">
                   <span>Total Deductions</span>
-                  <span className="font-mono text-red-500 tabular-nums">- ₱ {deductions.toLocaleString()}</span>
+                  <span className="font-mono text-red-500 tabular-nums">- ₱ {deductions.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
                 </div>
               </div>
               

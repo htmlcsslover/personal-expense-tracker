@@ -217,14 +217,14 @@ export function ExpenseManager({
           <span className="text-[10px] font-black uppercase tracking-[0.4em]">Add Transaction</span>
         </div>
 
-        <Card className="rounded-2xl border border-slate-200/50 bg-white/40 p-4 sm:p-6 backdrop-blur-md overflow-hidden">
+        <Card className="rounded-2xl border border-slate-200/50 bg-white/40 p-4 sm:p-6 backdrop-blur-md overflow-hidden w-fit max-w-full">
           <CardContent className="p-0">
             <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-cols-1 gap-3 sm:grid-cols-12 items-end">
-              <div className="sm:col-span-4 space-y-1.5">
+              <div className="sm:col-span-4 space-y-1.5 min-w-[140px] sm:min-w-[200px]">
                 <Label className="text-[9px] font-black text-slate-400 uppercase tracking-widest px-1">Description</Label>
-                <Input {...form.register("title")} placeholder="Transaction identifier..." className="h-9 rounded-lg border-slate-200 focus:border-slate-900 transition-all font-bold bg-white text-xs px-3" />
+                <Input {...form.register("title")} placeholder="Rent, Netflix, etc..." className="h-9 rounded-lg border-slate-200 focus:border-slate-900 transition-all font-bold bg-white text-xs px-3 w-full" />
               </div>
-              <div className="sm:col-span-3 space-y-1.5">
+              <div className="sm:col-span-3 space-y-1.5 w-[120px] sm:w-[140px]">
                 <Label className="text-[9px] font-black text-slate-400 uppercase tracking-widest px-1">Amount</Label>
                 <div className="relative group">
                   <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-300 font-black text-[10px] pointer-events-none select-none">
@@ -235,14 +235,14 @@ export function ExpenseManager({
                     type="number" 
                     step="0.01" 
                     placeholder="0.00" 
-                    className="pl-7 sm:pl-8 pr-3 h-9 rounded-lg border-slate-200 focus:border-slate-900 transition-all font-mono font-bold bg-white text-xs tabular-nums" 
+                    className="pl-7 sm:pl-8 pr-3 h-9 rounded-lg border-slate-200 focus:border-slate-900 transition-all font-mono font-bold bg-white text-xs tabular-nums w-full" 
                   />
                 </div>
               </div>
-              <div className="sm:col-span-3 space-y-1.5">
+              <div className="sm:col-span-3 space-y-1.5 w-[140px] sm:w-[160px]">
                 <Label className="text-[9px] font-black text-slate-400 uppercase tracking-widest px-1">Classification</Label>
                 <Select onValueChange={(v) => form.setValue("type", v as any)} value={watchType}>
-                  <SelectTrigger className="h-9 rounded-lg border-slate-200 focus:ring-0 focus:border-slate-900 font-bold bg-white text-xs px-3">
+                  <SelectTrigger className="h-9 rounded-lg border-slate-200 focus:ring-0 focus:border-slate-900 font-bold bg-white text-xs px-3 w-full">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent className="rounded-xl border-slate-100 shadow-xl p-1.5">
@@ -251,10 +251,10 @@ export function ExpenseManager({
                   </SelectContent>
                 </Select>
               </div>
-              <div className="sm:col-span-2 space-y-1.5">
+              <div className="sm:col-span-2 space-y-1.5 w-[120px] sm:w-[140px]">
                 <Label className="text-[9px] font-black text-slate-400 uppercase tracking-widest px-1">Frequency</Label>
                 <Select onValueChange={(v) => form.setValue("frequency", v as any)} value={watchFrequency}>
-                  <SelectTrigger className="h-9 rounded-lg border-slate-200 focus:ring-0 focus:border-slate-900 font-bold bg-white text-xs px-3">
+                  <SelectTrigger className="h-9 rounded-lg border-slate-200 focus:ring-0 focus:border-slate-900 font-bold bg-white text-xs px-3 w-full">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent className="rounded-xl border-slate-100 shadow-xl p-1.5">
@@ -262,9 +262,9 @@ export function ExpenseManager({
                     <SelectItem value="MONTHLY" className="rounded-lg font-bold text-[10px] uppercase tracking-widest">Monthly</SelectItem>
                     <SelectItem value="PER CUTOFF" className="rounded-lg font-bold text-[10px] uppercase tracking-widest">Cutoff</SelectItem>
                   </SelectContent>
-
                 </Select>
               </div>
+
 
               <div className="sm:col-span-12 flex flex-col sm:flex-row gap-3 items-end mt-2">
                 {watchFrequency === "ONCE" && (
@@ -280,7 +280,7 @@ export function ExpenseManager({
                     disabled={isPending}
                   >
                     <Sparkles className="w-3.5 h-3.5 mr-2" />
-                    {isPending ? "Adding..." : "Authorize Transaction"}
+                    {isPending ? "Adding..." : "Add Transaction"}
                   </Button>
                 </div>
               </div>
